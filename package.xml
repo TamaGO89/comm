@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>comm</name>
+  <version>0.0.1</version>
+  <description>
+    Communication node contains interfaces to connect to ether or serial devices
+    Serial and Ether are a threadsafe socket and file descriptor implementations
+  </description>
+
+  <maintainer email="andrea.tamantini@autognity.com">Andrea Tamantini</maintainer>
+  <author email="andrea.tamantini@autognity.com">Andrea Tamantini</author>
+
+  <license>MIT</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

@@ -1,29 +1,13 @@
-# README #
+# Ether and Serial Communication Library
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Documentation
 
-### What is this repository for? ###
+### Dependencies
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+### Install
 
-### How do I get set up? ###
+### License
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Authors
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+### Contact
