@@ -27,7 +27,6 @@ namespace comm {
 
     // Read common function
     size_t Serial::read_ (uint8_t *data, size_t size) {
-        std::cout << "READ_ 1" << std::endl;
         // If the port is not open or not connected, throw
         if ( ! ( this->is_open_ && this->is_connected_ ) ) throw new ConnectionException ("Serial::read : not connected");
         // Pre-fill buffer with available bytes
@@ -39,7 +38,6 @@ namespace comm {
         while (bytes_read < size) {
             // If the timeout expired or i read no data in the last cycle break the reading loop
             if ( timeout.expired() || bytes_read_now == 0 ) {
-                std::cout << "READ_ EXP" << std::endl;
                 break;
             }
             // Wait for the device to be readable, otherwise check again on the next loop
@@ -55,13 +53,11 @@ namespace comm {
             // Update bytes_read
             bytes_read += bytes_read_now;
         }
-        std::cout << "READ_ 2" << std::endl;
         return bytes_read;
     }
 
     // Send common function
     size_t Serial::send_ (const uint8_t *data, size_t size) {
-        std::cout << "SEND_ 1" << std::endl;
         // If the connection is not open and connected, throw
         if ( ! ( this->is_open_ && this->is_connected_ ) ) throw new ConnectionException ("Serial::send : not connected");
         // Prepare return variables
@@ -72,7 +68,6 @@ namespace comm {
         while (bytes_sent < size) {
             // If the timeout expired break the reading loop
             if ( timeout.expired() ) {
-                std::cout << "SEND_ EXP" << std::endl;
                 break;
             }
             // Wait for the device to be ready to receive, otherwise check again on the next loop
@@ -88,7 +83,6 @@ namespace comm {
             // Update bytes_sent
             bytes_sent += bytes_sent_now;
         }
-        std::cout << "SEND_ 2" << std::endl;
         return bytes_sent;
     }
 

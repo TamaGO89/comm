@@ -34,8 +34,7 @@ namespace comm {
     }
 
     double get_bytetime ( uint32_t baudrate, const Settings& settings ) {
-        return ( 1.0 + settings.bytesize + settings.parity + settings.stopbits
-                + ( settings.stopbits == HALFONE ? ( 1.5 - HALFONE ) : 0.0) ) / baudrate;
+        return ( 1.0 + settings.bytesize + settings.parity + (settings.stopbits==HALFONE?1.5:settings.stopbits) ) / baudrate;
     }
 
     speed_t get_baudrate (uint32_t baudrate) {
