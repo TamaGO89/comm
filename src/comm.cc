@@ -31,43 +31,43 @@ namespace comm {
 
     /*! Opens the comm port. */
     void Comm::open () {
-        std::cout << "OPEN 1" << std::endl;
+        //std::cout << "OPEN 1" << std::endl;
         boost::lock_guard<boost::mutex> lock_read(this->mtx_read);
         boost::lock_guard<boost::mutex> lock_send(this->mtx_send);
         this->open_();
         this->connect_();
-        std::cout << "OPEN 2" << std::endl;
+        //std::cout << "OPEN 2" << std::endl;
     }
     /*! Closes the comm port. */
     void Comm::close () {
-        std::cout << "CLOSE 1" << std::endl;
+        //std::cout << "CLOSE 1" << std::endl;
         boost::lock_guard<boost::mutex> lock_read(this->mtx_read);
         boost::lock_guard<boost::mutex> lock_send(this->mtx_send);
         this->close_();
-        std::cout << "CLOSE 2" << std::endl;
+        //std::cout << "CLOSE 2" << std::endl;
     }
 
     /*! Flush the input and output buffers */
     void Comm::flush () {
-        std::cout << "FLUSH 1" << std::endl;
+        //std::cout << "FLUSH 1" << std::endl;
         boost::lock_guard<boost::mutex> lock_read(this->mtx_read);
         boost::lock_guard<boost::mutex> lock_send(this->mtx_send);
         this->flush_();
-        std::cout << "FLUSH 2" << std::endl;
+        //std::cout << "FLUSH 2" << std::endl;
     }
     void Comm::flushInput () {
-        std::cout << "FLUSH IN 1" << std::endl;
+        //std::cout << "FLUSH IN 1" << std::endl;
         boost::lock_guard<boost::mutex> lock_read(this->mtx_read);
         boost::lock_guard<boost::mutex> lock_send(this->mtx_send);
         this->flushInput_();
-        std::cout << "FLUSH IN 2" << std::endl;
+        //std::cout << "FLUSH IN 2" << std::endl;
     }
     void Comm::flushOutput () {
-        std::cout << "FLUSH OUT 1" << std::endl;
+        //std::cout << "FLUSH OUT 1" << std::endl;
         boost::lock_guard<boost::mutex> lock_read(this->mtx_read);
         boost::lock_guard<boost::mutex> lock_send(this->mtx_send);
         this->flushOutput_();
-        std::cout << "FLUSH OUT 2" << std::endl;
+        //std::cout << "FLUSH OUT 2" << std::endl;
     }
 
     /*! Gets the open status of the comm port.
@@ -97,14 +97,14 @@ namespace comm {
      *-------------------------------------------------------------------------------------------------------------------*/
     // READ (char*,size) -> size : Threadsafely read a fixed size of char in a char array
     size_t Comm::read (uint8_t *buffer, size_t size) {
-        std::cout << "READ UINT 1" << std::endl;
+        //std::cout << "READ UINT 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_read);
-        std::cout << "READ UINT 2" << std::endl;
+        //std::cout << "READ UINT 2" << std::endl;
         return this->read_ (buffer, size);
     }
     // READ (vector<char>,size) -> size : Threadsafely read a fixed size of char in a char vector
     size_t Comm::read (vector<uint8_t> &buffer, size_t size) {
-        std::cout << "READ VEC 1" << std::endl;
+        //std::cout << "READ VEC 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_read);
         uint8_t *buffer_ = new uint8_t[size];
         size_t bytes_read = 0;
@@ -112,12 +112,12 @@ namespace comm {
         catch (const std::exception &e) { delete[] buffer_; throw; }
         buffer.insert (buffer.end (), buffer_, buffer_+bytes_read);
         delete[] buffer_;
-        std::cout << "READ VEC 2" << std::endl;
+        //std::cout << "READ VEC 2" << std::endl;
         return bytes_read;
     }
     // READ (string,size) -> size : Threadsafely read a fixed size of char in a string
     size_t Comm::read (string &buffer, size_t size) {
-        std::cout << "READ STR 1" << std::endl;
+        //std::cout << "READ STR 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_read);
         uint8_t *buffer_ = new uint8_t[size];
         size_t bytes_read = 0;
@@ -125,7 +125,7 @@ namespace comm {
         catch (const std::exception &e) { delete[] buffer_; throw; }
         buffer.append (reinterpret_cast<const char*>(buffer_), bytes_read);
         delete[] buffer_;
-        std::cout << "READ STR 2" << std::endl;
+        //std::cout << "READ STR 2" << std::endl;
         return bytes_read;
     }
     // READ (size) -> string : Threadsafely read a fixed size of char in a string
@@ -139,7 +139,7 @@ namespace comm {
      *-------------------------------------------------------------------------------------------------------------------*/
     // READLINE (string,size) -> size : Read a line (until eol or size is reached) into string, return the string size
     size_t Comm::readline (string& buffer, size_t size) {
-        std::cout << "READ LINE 1" << std::endl;
+        //std::cout << "READ LINE 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_read);
         uint8_t *buffer_ = static_cast<uint8_t*> (alloca (size * sizeof (uint8_t)));
         size_t read_so_far = 0;
@@ -152,7 +152,7 @@ namespace comm {
                 break; // EOL found
         }
         buffer.append(reinterpret_cast<const char*> (buffer_), read_so_far);
-        std::cout << "READ LINE 2" << std::endl;
+        //std::cout << "READ LINE 2" << std::endl;
         return read_so_far;
     }
     // READLINE (size) -> string : Read a line (until eol or size is reached) into a string, return the string
@@ -166,7 +166,7 @@ namespace comm {
      *-------------------------------------------------------------------------------------------------------------------*/
     // READLINES (size) -> vector<string> : Read a vector of strings (to eol) until a fixed size is reached, return the string
     vector<string> Comm::readlines ( size_t size ) {
-        std::cout << "READ LINES 1" << std::endl;
+        //std::cout << "READ LINES 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_read);
         vector<string> lines;
         uint8_t* buffer_ = static_cast<uint8_t*> (alloca (size * sizeof (uint8_t)));
@@ -186,7 +186,7 @@ namespace comm {
         }
         if (start_of_line != read_so_far)
             lines.emplace_back(reinterpret_cast<const char*>(buffer_+start_of_line), read_so_far-start_of_line);
-        std::cout << "READ LINES 2" << std::endl;
+        //std::cout << "READ LINES 2" << std::endl;
         return lines;
     }
 
@@ -198,23 +198,23 @@ namespace comm {
      *-------------------------------------------------------------------------------------------------------------------*/
     // SEND (string) -> size : Send a string, returns the number of sent char
     size_t Comm::send (const string& data) {
-        std::cout << "SEND STR 1" << std::endl;
+        //std::cout << "SEND STR 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_send);
-        std::cout << "SEND STR 2" << std::endl;
+        //std::cout << "SEND STR 2" << std::endl;
         return this->send_ (reinterpret_cast<const uint8_t*>(data.c_str()), data.length());
     }
     // SEND (vector<char>) -> size : Send a char vector, returns the number of sent char
     size_t Comm::send (const std::vector<uint8_t> &data) {
-        std::cout << "SEND VEC 1" << std::endl;
+        //std::cout << "SEND VEC 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_send);
-        std::cout << "SEND VEC 2" << std::endl;
+        //std::cout << "SEND VEC 2" << std::endl;
         return this->send_ (&data[0], data.size());
     }
     // SEND (char*,size) -> size : Send a char array, returns the number of sent char
     size_t Comm::send (const uint8_t *data, size_t size) {
-        std::cout << "SEND UINT 1" << std::endl;
+        //std::cout << "SEND UINT 1" << std::endl;
         boost::lock_guard<boost::mutex> lock(this->mtx_send);
-        std::cout << "SEND UINT 2" << std::endl;
+        //std::cout << "SEND UINT 2" << std::endl;
         return this->send_ (data, size);
     }
 
@@ -332,9 +332,9 @@ namespace comm {
         FD_ZERO ( &fd_set_ );
         FD_SET ( this->fd_, &fd_set_ );
         int result = select (fd_ + 1, &fd_set_, NULL, NULL, &(this->timeout_.conn));
-        std::cout << "WAIT READ 1 : " << result << std::endl;
+        //std::cout << "WAIT READ 1 : " << result << std::endl;
         if (result < 0) {
-            std::cout << "WAIT READ 2 : " << errno << std::endl;
+            //std::cout << "WAIT READ 2 : " << errno << std::endl;
             // Select was interrupted
             if (errno == EINTR) return 0;
             // Otherwise there was some error
@@ -345,11 +345,11 @@ namespace comm {
             throw new IOException (
                     "Comm::waitRead : select reports ready to read, but our fd isn't in the list, this shouldn't happen!");
         // Data available to read.
-        std::cout << "WAIT READ 3" << std::endl;
+        //std::cout << "WAIT READ 3" << std::endl;
         return result;
     }
     int Comm::waitSend_ () {
-        std::cout << "WAIT SEND 1" << std::endl;
+        //std::cout << "WAIT SEND 1" << std::endl;
         // Setup a select call to block for comm data or a timeout
         fd_set fd_set_;
         FD_ZERO ( &fd_set_ );
@@ -366,7 +366,7 @@ namespace comm {
             throw new IOException (
                     "Comm::waitSend : select reports ready to send, but our fd isn't in the list, this shouldn't happen!");
         // Data available to read.
-        std::cout << "WAIT SEND 2" << std::endl;
+        //std::cout << "WAIT SEND 2" << std::endl;
         return result;
     }
 
