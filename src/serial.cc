@@ -3,9 +3,9 @@
 // -- BEGIN LICENSE BLOCK -----------------------------------------------------------------------------------------------------
 
 /*!
- *  Copyright (C) 2021, Autognity Srl, Via del Popolo 6, Orvieto (TR)
+ *  Copyright (CC) 2023, Andrea Tamantini (Tamago)
  *  \file serial.cc
- *  \author Andrea Tamantini <andrea.tamantini@autognity.com>
+ *  \author Andrea Tamantini <tamandre89@gmail.com>
  *  \date 2021-05-18
  */
 

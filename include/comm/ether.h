@@ -1,6 +1,6 @@
 /*!
  * \file comm/ether.h
- * \author Andrea Tamantini <andrea.tamantini@autognity.com>
+ * \author Andrea Tamantini <tamandre89@gmail.com>
  * \version 0.1
  *
  * \section LICENSE
